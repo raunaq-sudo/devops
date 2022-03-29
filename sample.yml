@@ -1,0 +1,20 @@
+---
+- name: sample
+  hosts: ansible_clients
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: install httpd
+      apt:
+        name: apache2
+        update_cache: yes
+        state: latest
+    - name: run httpd
+      service:
+        name: httpd
+        state: started
+    - name: create content
+      copy:
+        content: "Welcome"
+        dest: /var/www/html/index.html
